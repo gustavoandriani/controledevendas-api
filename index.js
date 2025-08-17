@@ -7,7 +7,7 @@ app.use(cors({optionsSuccessStatus: 200}));
 app.use(express.json());
 
 // Criar schema via endpoint
-app.post('/:nome', async (req, res) => {
+app.post('/api/:nome', async (req, res) => {
   const { nome } = req.params;
   try {
     await pool.query(`CREATE SCHEMA IF NOT EXISTS ${nome}`);
