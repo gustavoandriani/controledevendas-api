@@ -6,6 +6,17 @@ const app = express();
 app.use(cors({optionsSuccessStatus: 200}));
 app.use(express.json());
 
+// Criar schema via endpoint
+app.post('/:nome', async (req, res) => {
+  const { nome } = req.params;
+  try {
+    await pool.query(`CREATE SCHEMA IF NOT EXISTS ${nome}`);
+    res.json({ mensagem: `Schema "${nome}" criado com sucesso!` });
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+});
+
 const salesRoutes = require('./routes/pedidos.js');
 app.use('/api/pedidos', salesRoutes);
 
